@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login and Links</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #6e8efb, #a777e3);
+    }
+    .container {
+      width: 90vw;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+    #page1{
+        max-width: 400px;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    .profile-image {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 20px;
+    }
+    .profile-image img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    input {
+      margin-bottom: 15px;
+      padding: 10px;
+      width: 100%;
+      max-width: 300px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px;
+      width: 100%;
+      max-width: 85%;
+      background: #6e8efb;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    #page2 button{
+        font-size: 25px;
+        max-width: 500px;
+        padding: 20px 10px;
+    }
+    button:hover {
+      background: #5a75d8;
+    }
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    .links-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+      justify-content: center;
+    }
+    .card {
+      text-decoration: none;
+      color: black;
+      width: 45%;
+      height: 20vh;
+      min-height: 100px;
+      background: #f7f7f7;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size:24px;
+      font-weight: bold;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+    .card:hover {
+      transform: scale(1.03);
+      background: rgba(211, 211, 249, 0.8);
+    }
+    @media (max-width: 600px) {
+        .links-container{
+            gap: 10px;
+        }
+      .card {
+        font-size: 12px;
+      }
+      .profile-image {
+        width: 80px;
+        height: 80px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="page1" class="container">
+    <h2>Login to Data Phystech</h2>
+    <div class="profile-image">
+        <img src="./assets/logo.png" alt="Profile">
+    </div>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <p class="error" id="error"></p>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <div id="page2" class="container" style="display: none;">
+    <h2>Choose a Report</h2>
+    <div class="profile-image">
+        <img src="./assets/logo.png" alt="Profile">
+    </div>
+    <div class="links-container">
+        <a class="card" 
+            href="https://phtkz-my.sharepoint.com/:x:/g/personal/altazhanov_pht_kz/ESghqVwsCgFFkmoSVo1MkgEBOx5m8TFAJi2Ck6YkBQjwaA?e=sC7XeH"
+        > 
+            DER
+        </a>
+        <a class="card" 
+            href="https://phtkz-my.sharepoint.com/:x:/g/personal/altazhanov_pht_kz/EcY1TatJWsBKumsBK6TefXcBxnensqv7AfJ5mS7rT_NQVg?e=stw3Tv"
+        >
+            DPR
+        </a>
+        <a class="card" 
+            href="https://phtkz-my.sharepoint.com/:x:/g/personal/altazhanov_pht_kz/EUkC5eiTJmBEmt5yQYVWgT8BfSm5_Zxc9oag1GqhVKsvWA?e=cjvcLu"
+        >
+            DLR
+        </a>
+        <a class="card" 
+            href="https://phtkz-my.sharepoint.com/:x:/g/personal/altazhanov_pht_kz/ERxcn3XDi3BHkMF_d9csWbgBcgrDKtCEkRUgScex9cHeig?e=9YX5bR"
+        >
+            DTR
+        </a>
+    </div>
+    <button id="logoutButton" style="margin-top: 20px;">Logout</button>
+  </div>
+
+  <script>
+    const validCredentials = [
+      { username: "technolog_phystech", password: "Aophystech@1!" },
+      { username: "geolog_phystech", password: "Aophystech@1!" },
+      { username: "lab_phystech", password: "Aophystech@1!" },
+      { username: "electric_phystech", password: "Aophystech@1!" },
+      { username: "office_phystech", password: "Aophystech@1!" },
+      { username: "user1", password: "pass1" },
+    ];
+
+    const loginForm = document.getElementById('loginForm');
+    const errorElement = document.getElementById('error');
+    const page1 = document.getElementById('page1');
+    const page2 = document.getElementById('page2');
+    const logoutButton = document.getElementById('logoutButton');
+
+    function checkLocalStorage() {
+      const isLoggedIn = localStorage.getItem('isLoggedIn');
+      if (isLoggedIn === 'true') {
+        page1.style.display = 'none';
+        page2.style.display = 'block';
+      }
+    }
+
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      const isValid = validCredentials.some(
+        (cred) => cred.username === username && cred.password === password
+      );
+
+      if (isValid) {
+        errorElement.textContent = '';
+        localStorage.setItem('isLoggedIn', 'true');
+        page1.style.display = 'none';
+        page2.style.display = 'block';
+      } else {
+        errorElement.textContent = 'Invalid username or password';
+      }
+    });
+
+    logoutButton.addEventListener('click', () => {
+      localStorage.removeItem('isLoggedIn');
+      page2.style.display = 'none';
+      page1.style.display = 'block';
+    });
+
+    checkLocalStorage();
+  </script>
+</body>
+</html>
