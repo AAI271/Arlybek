@@ -129,6 +129,7 @@
   </style>
 </head>
 <body>
+  <!-- Page 1 -->
   <div id="page1" class="container">
     <h2>Login to Data Phystech</h2>
     <div class="profile-image">
@@ -142,33 +143,38 @@
     </form>
   </div>
 
+  <!-- Page 2 -->
   <div id="page2" class="container" style="display: none;">
     <h2>Choose a Report</h2>
     <div class="profile-image">
         <img src="./assets/logo.png" alt="Profile">
     </div>
     <div class="links-container">
-        <a class="card" 
-            href="https://phtkz-my.sharepoint.com/:x:/g/personal/altazhanov_pht_kz/ESghqVwsCgFFkmoSVo1MkgEBOx5m8TFAJi2Ck6YkBQjwaA?e=sC7XeH"
-        > 
-            DER
-        </a>
-        <a class="card" 
-            href="https://phtkz-my.sharepoint.com/:x:/g/personal/altazhanov_pht_kz/EcY1TatJWsBKumsBK6TefXcBxnensqv7AfJ5mS7rT_NQVg?e=stw3Tv"
-        >
-            DPR
-        </a>
-        <a class="card" 
-            href="https://phtkz-my.sharepoint.com/:x:/g/personal/altazhanov_pht_kz/EUkC5eiTJmBEmt5yQYVWgT8BfSm5_Zxc9oag1GqhVKsvWA?e=cjvcLu"
-        >
-            DLR
-        </a>
-        <a class="card" 
-            href="https://phtkz-my.sharepoint.com/:x:/g/personal/altazhanov_pht_kz/ERxcn3XDi3BHkMF_d9csWbgBcgrDKtCEkRUgScex9cHeig?e=9YX5bR"
-        >
-            DTR
-        </a>
+      <a class="card" target="_blank"
+      href="https://phtkz-my.sharepoint.com/:x:/g/personal/altazhanov_pht_kz/ESghqVwsCgFFkmoSVo1MkgEBOx5m8TFAJi2Ck6YkBQjwaA?e=sC7XeH"
+  > 
+      DER
+  </a>
+  <a class="card" target="_blank"
+      href="https://phtkz-my.sharepoint.com/:x:/g/personal/altazhanov_pht_kz/EcY1TatJWsBKumsBK6TefXcBxnensqv7AfJ5mS7rT_NQVg?e=stw3Tv"
+  >
+      DPR
+  </a>
+  <a class="card" target="_blank"
+      href="https://phtkz-my.sharepoint.com/:x:/g/personal/altazhanov_pht_kz/EUkC5eiTJmBEmt5yQYVWgT8BfSm5_Zxc9oag1GqhVKsvWA?e=cjvcLu"
+  >
+      DLR
+  </a>
+  <a class="card" target="_blank"
+      href="https://phtkz-my.sharepoint.com/:x:/g/personal/altazhanov_pht_kz/ERxcn3XDi3BHkMF_d9csWbgBcgrDKtCEkRUgScex9cHeig?e=9YX5bR"
+  >
+      DTR
+  </a>
     </div>
+
+    <!-- Button visible only for "office_phystech" -->
+    <button id="specialButton" style="margin-top: 20px; display: none;">Dashboard</button>
+    <div></div>
     <button id="logoutButton" style="margin-top: 20px;">Logout</button>
   </div>
 
@@ -187,12 +193,20 @@
     const page1 = document.getElementById('page1');
     const page2 = document.getElementById('page2');
     const logoutButton = document.getElementById('logoutButton');
+    const specialButton = document.getElementById('specialButton');
 
     function checkLocalStorage() {
       const isLoggedIn = localStorage.getItem('isLoggedIn');
+      const currentUser = localStorage.getItem('currentUser');
+      
       if (isLoggedIn === 'true') {
         page1.style.display = 'none';
         page2.style.display = 'block';
+        
+        // Show the special button if the user is "office_phystech"
+        if (currentUser === 'office_phystech') {
+          specialButton.style.display = 'inline';
+        }
       }
     }
 
@@ -209,8 +223,14 @@
       if (isValid) {
         errorElement.textContent = '';
         localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('currentUser', username); // Save the username
         page1.style.display = 'none';
         page2.style.display = 'block';
+
+        // Show the special button if the user is "office_phystech"
+        if (username === 'office_phystech') {
+          specialButton.style.display = 'inline';
+        }
       } else {
         errorElement.textContent = 'Invalid username or password';
       }
@@ -218,11 +238,14 @@
 
     logoutButton.addEventListener('click', () => {
       localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('currentUser'); // Remove the current user
       page2.style.display = 'none';
       page1.style.display = 'block';
+      specialButton.style.display = 'none'; // Hide the special button
     });
 
     checkLocalStorage();
   </script>
 </body>
+
 </html>
